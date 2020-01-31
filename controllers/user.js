@@ -135,42 +135,42 @@ const user = {
 
 
      //check if image is valid
-    //  values.forEach((item) => {
-    //     if(item[0].mimetype == "image/png" || item[0].mimetype =="image/jpeg" || item[0].mimetype =="application/pdf") return;
-    //     validImage.push("invalid")
-    //  })
+     values.forEach((item) => {
+        if(item[0].mimetype == "image/png" || item[0].mimetype =="image/jpeg" || item[0].mimetype =="application/pdf") return;
+        validImage.push("invalid")
+     })
  
-    //  //throw eror if not valid
-    //  if(validImage[0]) return res.status(400).send({success:false, message:'Invalid file format. Only jpegs or pngs'})
+     //throw eror if not valid
+     if(validImage[0]) return res.status(400).send({success:false, message:'Invalid file format. Only jpegs or pngs'})
  
-    //  //check size of the image
-    //  values.forEach((item) => {
-    //      if(item[0].size <= 2000000) return;
-    //      validSize.push("invalid") 
-    //  })
+     //check size of the image
+     values.forEach((item) => {
+         if(item[0].size <= 2000000) return;
+         validSize.push("invalid") 
+     })
  
-    //  //throw eror if greater than 2mb 
-    //  if(validSize[0]) return res.status(400).send({success:false, message:'File size must not be more than 2mb'})
+     //throw eror if greater than 2mb 
+     if(validSize[0]) return res.status(400).send({success:false, message:'File size must not be more than 2mb'})
  
-    //  //save image to cloud
-    //  for (let i = 0; i<keys.length; i++) {
-    //      const uniqueFileName = new Date().toISOString()
-    //      await newCloudinary1(values[i][0].path, uniqueFileName)
-    //      .then(data => {
-    //          console.log(data);
-    //          data.name = keys[i]
-    //          arr.push(data)
-    //      })
-    //      .catch(err =>{ 
-    //          console.error(err);
-    //          errors.push(err)  
-    //      })
-    //  }
+     //save image to cloud
+     for (let i = 0; i<keys.length; i++) {
+         const uniqueFileName = new Date().toISOString()
+         await newCloudinary1(values[i][0].path, uniqueFileName)
+         .then(data => {
+             console.log(data);
+             data.name = keys[i]
+             arr.push(data)
+         })
+         .catch(err =>{ 
+             console.error(err);
+             errors.push(err)  
+         })
+     }
  
-    //  //throw err if any
-    //  if(errors[0]) {
-    //      if(errors[0].error.errno =="ENOTFOUND" || errors[0].error.code =="ENOTFOUND" ) return res.status(400).send({success:false, message:"Check your internet connection"})
-    //  }
+     //throw err if any
+     if(errors[0]) {
+         if(errors[0].error.errno =="ENOTFOUND" || errors[0].error.code =="ENOTFOUND" ) return res.status(400).send({success:false, message:"Check your internet connection"})
+     }
 
      
     // define user req.body variables
@@ -185,7 +185,7 @@ const user = {
     const bvn = req.body.bvn;
     const account = "";
     // const idCard = req.body.idCard;
-    //const passport = arr[0].secure_url;
+    const passport = arr[0].secure_url;
   
     //init user model
     user = new User ({
@@ -200,7 +200,7 @@ const user = {
         account,
         address,
         // idCard,
-       // passport
+        passport
     })
 
      //hash password with salt   
@@ -208,41 +208,41 @@ const user = {
      user.password =  await bcrypt.hash(user.password, salt)
 
     //define serialNumber model variables
-    // let serialNumber = await SerialNumber.find().sort().select("number -_id")
-    // const lastSerialNumber = serialNumber[serialNumber.length-1];
+    let serialNumber = await SerialNumber.find().sort().select("number -_id")
+    const lastSerialNumber = serialNumber[serialNumber.length-1];
 
-    // //init Serialnumber Model
-    // serialNumber = new SerialNumber({
-    //     number : lastSerialNumber.number + 1
-    // })
+    //init Serialnumber Model
+    serialNumber = new SerialNumber({
+        number : lastSerialNumber.number + 1
+    })
 
-    // //save serial number
-    // await serialNumber.save()
+    //save serial number
+    await serialNumber.save()
 
-    // //generate account number
-    // let nuban = await generateAccount("05867", serialNumber.number + 1);
+    //generate account number
+    let nuban = await generateAccount("05867", serialNumber.number + 1);
      
-    // //Define account model variables
-    // const number = nuban.nuban;
-    // const name = user._id
+    //Define account model variables
+    const number = nuban.nuban;
+    const name = user._id
  
-    //  //init Account model
-    //  const accounts = new Account ({
-    //      number,
-    //      name
-    //  })
+     //init Account model
+     const accounts = new Account ({
+         number,
+         name
+     })
  
-    //  //save account to database
-    // await accounts.save()
+     //save account to database
+    await accounts.save()
 
-    // //set sccount to acount number
-    // user.account = nuban.nuban
+    //set sccount to acount number
+    user.account = nuban.nuban
 
     //save user
     await user.save()
 
 
-    res.send({success:true, message:"Successfully registered"})
+    res.send({success:true, message:"Successfully registered", account:number})
 
  },
 

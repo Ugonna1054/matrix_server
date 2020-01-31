@@ -28,13 +28,11 @@ router.get('/agent', [auth.auth,admin], user.getAgents)
 router.get('/agent/me', auth.auth,  user.getAgentOne)
 
 //Create User/customer
-router.post('/',  cpUpload,  user.userSignup)
+router.post('/', [auth.auth, auth.authorize], cpUpload,  user.userSignup)
 
 //Get all Users/Customer
 router.get('/', user.getUsers)
 
-//Get one agent
+//Get one user
 router.get('/me', auth.auth,  user.getUserOne)
-module.exports = (router);
-
-// [auth.auth, auth.authorize],
+module.exports = (router); 
