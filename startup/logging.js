@@ -18,6 +18,6 @@ module.exports = function () {
 
     //Logging errors globally
     winston.add(winston.transports.File, {filename:'logfile.log'});
-    winston.add(winston.transports.MongoDB, {db:'mongodb://localhost/Eazzi'})
+    winston.add(winston.transports.MongoDB, {db:'mongodb://localhost/matrix'})
 
 }

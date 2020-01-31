@@ -64,7 +64,7 @@ const user = {
 
     // define req.body variables
     const firstname = req.body.firstname;
-    const middlename = req.body.password;
+    const middlename = req.body.middlename;
     const lastname = req.body.lastname;
     const email = req.body.email;
     const password = req.body.password;
@@ -184,6 +184,7 @@ const user = {
     const address = req.body.address;
     const bvn = req.body.bvn;
     const account = "";
+    const agent = req.user._id;
     // const idCard = req.body.idCard;
     const passport = arr[0].secure_url;
   
@@ -197,6 +198,7 @@ const user = {
         phone,
         dob,
         bvn,
+        agent,
         account,
         address,
         // idCard,
@@ -250,13 +252,13 @@ const user = {
 
  //get all users
  getUsers : async(req,res) => {
-    let user = await User.find().select("-password");
+    let user = await User.find().select("-password").populate("agent", "firstname middlename lastname");
     if(!user[0]) return res.status(404).send({success:false, message:'No users yet.'})
     res.send(user)
  },
   //Get one User profile
   getUserOne : async(req, res) => {
-    let user = await User.findById(req.user._id).select("-password")
+    let user = await User.findById(req.user._id).select("-password").populate("agent", "firstname middlename lastname");
     if(!user) return res.status(404).send({success:false, message:'No user found.'})
     res.send(user)
 },

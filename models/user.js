@@ -132,6 +132,11 @@ lastname: {
    type: String,
    required: true
 },
+agent : {
+  type : ObjectId,
+  ref : "Agent",
+  required:true
+},
 // idCard : {
 //  type : String,
 //  required : true

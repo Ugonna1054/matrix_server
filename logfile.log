@@ -1459,3 +1459,50 @@
 {"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:00:04.945Z"}
 {"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T14:00:23.813Z"}
 {"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:00:25.864Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T14:01:29.309Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:01:31.375Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T14:06:38.288Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:06:40.343Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T14:09:13.887Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:09:15.944Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T14:59:10.796Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:59:12.835Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T14:59:19.227Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:59:21.274Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T14:59:33.920Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T14:59:35.976Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T15:00:46.977Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T15:00:49.008Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T15:01:21.808Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:01:23.868Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T15:01:53.356Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:01:55.412Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T15:02:01.188Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:02:03.241Z"}
+{"level":"info","message":"Howdy, I am running at PORT 4000","timestamp":"2020-01-31T15:04:03.711Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:04:05.734Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:05:05.534Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:05:19.299Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:10:21.782Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:10:35.912Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:10:45.621Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:15:16.050Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:15:21.392Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:15:40.042Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:16:36.225Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:17:20.202Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:17:50.811Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:28:24.056Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:50:49.402Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:53:46.968Z"}
+{"message":"Cannot read property '_id' of undefined","stack":"TypeError: Cannot read property '_id' of undefined\n    at userSignup (C:\\Users\\Administrator\\Documents\\JAVASCRIPT_PROJECT\\Asset_matrix\\asset_server\\server\\controllers\\user.js:187:28)\n    at process._tickCallback (internal/process/next_tick.js:68:7)","level":"error","timestamp":"2020-01-31T15:55:02.031Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:55:45.282Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:55:51.348Z"}
+{"message":"Cannot read property 'number' of undefined","stack":"TypeError: Cannot read property 'number' of undefined\n    at userSignup (C:\\Users\\Administrator\\Documents\\JAVASCRIPT_PROJECT\\Asset_matrix\\asset_server\\server\\controllers\\user.js:220:35)\n    at process._tickCallback (internal/process/next_tick.js:68:7)","level":"error","timestamp":"2020-01-31T15:55:59.404Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:57:40.138Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T15:57:54.927Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T16:05:56.149Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T16:06:30.616Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T16:06:41.416Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T16:06:45.921Z"}
+{"level":"info","message":"Connected to matrix db......","timestamp":"2020-01-31T16:07:43.233Z"}

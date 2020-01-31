@@ -14,7 +14,7 @@ require('./startup/prod')(app)
 
 
 app.listen(port,()=>{
-  winston.info("Howdy, I am running at PORT " + port)
+  console.log("Howdy, I am running at PORT " + port)
 })
 
 
