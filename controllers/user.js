@@ -205,7 +205,9 @@ const user = {
 
      //hash password with salt   
      const salt = await bcrypt.genSalt(10);
-     user.password =  await bcrypt.hash(user.password, salt)
+     user.password =  await bcrypt.hash(user.password, salt);
+
+     await user.save()
 
     //define serialNumber model variables
     let serialNumber = await SerialNumber.find().sort().select("number -_id")
