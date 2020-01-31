@@ -208,41 +208,41 @@ const user = {
      user.password =  await bcrypt.hash(user.password, salt)
 
     //define serialNumber model variables
-    let serialNumber = await SerialNumber.find().sort().select("number -_id")
-    const lastSerialNumber = serialNumber[serialNumber.length-1];
+    // let serialNumber = await SerialNumber.find().sort().select("number -_id")
+    // const lastSerialNumber = serialNumber[serialNumber.length-1];
 
-    //init Serialnumber Model
-    serialNumber = new SerialNumber({
-        number : lastSerialNumber.number + 1
-    })
+    // //init Serialnumber Model
+    // serialNumber = new SerialNumber({
+    //     number : lastSerialNumber.number + 1
+    // })
 
-    //save serial number
-    await serialNumber.save()
+    // //save serial number
+    // await serialNumber.save()
 
-    //generate account number
-    let nuban = await generateAccount("05867", serialNumber.number + 1);
+    // //generate account number
+    // let nuban = await generateAccount("05867", serialNumber.number + 1);
      
-    //Define account model variables
-    const number = nuban.nuban;
-    const name = user._id
+    // //Define account model variables
+    // const number = nuban.nuban;
+    // const name = user._id
  
-     //init Account model
-     const accounts = new Account ({
-         number,
-         name
-     })
+    //  //init Account model
+    //  const accounts = new Account ({
+    //      number,
+    //      name
+    //  })
  
-     //save account to database
-    await accounts.save()
+    //  //save account to database
+    // await accounts.save()
 
-    //set sccount to acount number
-    user.account = nuban.nuban
+    // //set sccount to acount number
+    // user.account = nuban.nuban
 
     //save user
     await user.save()
 
 
-    res.send({success:true, message:"Successfully registered", account:number})
+    res.send({success:true, message:"Successfully registered"})
 
  },
 

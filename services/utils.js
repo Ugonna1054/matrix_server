@@ -1,7 +1,7 @@
 const fetch = require("node-fetch")
 
  async function generateAccount (bankCode, serialNumber) {
-   const url = `http://localhost:4000/api/accounts/banks/${bankCode}/${serialNumber}`;
+   const url = `https://matrixx-server.herokuapp.com/api/accounts/banks/${bankCode}/${serialNumber}`;
    return fetch(url, {method:"post"})
    .then(res => res.json())
     .then(data => {

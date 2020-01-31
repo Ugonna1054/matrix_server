@@ -138,7 +138,7 @@ lastname: {
 // },
 passport : {
  type : String,
- required : true
+//  required : true
 },
 account :  {
   type : String
