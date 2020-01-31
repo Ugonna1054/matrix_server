@@ -1442,3 +1442,7 @@
 {"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T12:51:36.006Z"}
 {"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T12:51:40.193Z"}
 {"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T12:52:26.295Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T12:53:20.490Z"}
+{"message":"Cannot read property 'secure_url' of undefined","stack":"TypeError: Cannot read property 'secure_url' of undefined\n    at userSignup (C:\\Users\\Administrator\\Documents\\JAVASCRIPT_PROJECT\\Asset_matrix\\asset_server\\server\\controllers\\user.js:188:29)","level":"error","timestamp":"2020-01-31T12:55:42.364Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T12:56:08.230Z"}
+{"level":"info","message":"Connected to chat db......","timestamp":"2020-01-31T12:56:36.405Z"}
