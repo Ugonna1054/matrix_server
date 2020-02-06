@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const auth = require("../middleware/auth")
+const admin = require("../middleware/admin")
 const account = require("../controllers/account");
 
 //post and get all serial number
@@ -10,7 +12,7 @@ router.route ("/serial")
 
 //Get all accounts
 router.route("/")
-    .get(account.getAccounts)
+    .get([auth.auth, admin], account.getAccounts)
 
 //Get One Account
 router.route('/:number')

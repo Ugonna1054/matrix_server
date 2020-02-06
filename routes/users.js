@@ -24,8 +24,11 @@ router.post('/agent', [auth.auth,admin], cpUpload,  user.agentSignup)
 //Get all agents
 router.get('/agent', [auth.auth,admin], user.getAgents)
 
-//Get one agent
+//Get one agent by agent
 router.get('/agent/me', auth.auth,  user.getAgentOne)
+
+//Get one agent by Admin
+router.get('/agent/:id',  [auth.auth,admin],  user.getAgentOneAdmin)
 
 //Create User/customer
 router.post('/', [auth.auth, auth.authorize], cpUpload,  user.userSignup)
@@ -35,4 +38,18 @@ router.get('/', user.getUsers)
 
 //Get one user
 router.get('/me', auth.auth,  user.getUserOne)
+
+/**
+ * @description Get all Users attached to an agent
+ * @params id => id of the agent
+ */
+router.get('/:id', user.getUserOneAgent)
+
+//Update a User Account to Approved
+router.put('/update/approve/:id', [auth.auth,admin],  user.updateApprove)
+
+//Update a User Account to Declined
+router.put('/update/decline/:id', [auth.auth,admin],  user.updateDecline)
+
+
 module.exports = (router); 

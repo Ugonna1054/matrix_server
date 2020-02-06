@@ -4,6 +4,21 @@ const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
+const wallet = new mongoose.Schema({
+  totalDeposit : {
+    type:Number,
+    default:0
+  },
+  todayDeposit : {
+    type:Number,
+    default:0
+  },
+  balance : {
+    type:Number,
+    default:0
+  }
+})
+
 //define agent schema
 const agentSchema = new mongoose.Schema({
      firstname: {
@@ -52,6 +67,7 @@ const agentSchema = new mongoose.Schema({
     type : String,
     required : true
    },
+   wallet,
     isAdmin: Boolean,
 },
 {
@@ -83,15 +99,19 @@ function validateAgent(user) {
       email : Joi.string().required().email(),
       password : Joi.string().required().min(6).max(20),
       phone : Joi.string().required().min(11).max(15),
-      dob : Joi.string().required().max(20),
-      address : Joi.string().required().max(30),
+      dob : Joi.string().required().max(30),
+      address : Joi.string().required().max(50),
       idCard :Joi.allow(""),
       passport : Joi.allow(""),
+      wallet : Joi.object().keys({
+        totalDeposit:Joi.string().allow(""),
+        todayDeposit:Joi.string().allow(""),
+        balance:Joi.string().allow(""),
+    }),
     })
 
     return schema.validate(user);
 }
-
 
 //define user schema
 const userSchema = new mongoose.Schema({
@@ -108,7 +128,12 @@ const userSchema = new mongoose.Schema({
  },
 lastname: {
   type: String,
-   required: true
+  required: true
+},
+gender :{
+  type: String,
+  required: true,
+  enum:["male", "female", "other" ]
 },
  email :{
      index: true,
@@ -118,7 +143,12 @@ lastname: {
  },
  phone: {
    type: String,
-   required: true
+   required: true,
+   unique:true
+},
+needsPassword : {
+  type: String,
+  default:false
 },
  password: {
      type: String,
@@ -145,8 +175,9 @@ passport : {
  type : String,
  required : true
 },
-account :  {
-  type : String
+account : {
+  type : ObjectId,
+  ref : "Account",
 },
 bvn :{
   type: String
@@ -179,13 +210,14 @@ function validateUser(user) {
     firstname: Joi.string().min(3).max(15).required(),
     middlename: Joi.string().min(3).max(15).allow(""),
     lastname : Joi.string().required().min(3).max(15),
+    gender : Joi.string().required(),
     email : Joi.string().required().email(),
     password : Joi.string().required().min(6).max(20),
     phone : Joi.string().required().min(11).max(15),
-    dob : Joi.string().required().max(20),
+    dob : Joi.string().required().max(30),
     bvn : Joi.string().min(11).max(11).allow(""),
     account : Joi.string().min(10).max(10).allow(""),
-    address : Joi.string().required().max(30),
+    address : Joi.string().required().max(50),
     // idCard :Joi.allow(""),
     passport : Joi.allow(""),
   })

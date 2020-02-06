@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 const {Agent, User, validateAgent, validateUser} = require('../models/user');
 const {Account, SerialNumber} = require('../models/Account');
 const {newCloudinary1} = require( "../services/cloudinary");
-const {generateAccount} = require("../services/utils")
+const {generateAccount} = require("../services/utils");
+
  
 const user = {
     //Signup Agent
@@ -75,7 +76,7 @@ const user = {
     const passport = arr[1].secure_url
 
 
-    //init user model
+    //init agent model
         agent = new Agent ({
             firstname,
             middlename,
@@ -107,12 +108,19 @@ const user = {
     res.send(agent)
  },
 
- //Get one Agent profile
+ //Get one Agent profile by agent
  getAgentOne : async(req, res) => {
      let agent = await Agent.findById(req.user._id).select("-password")
      if(!agent) return res.status(404).send({success:false, message:'No Agent found.'})
      res.send(agent)
  },
+ //Get one agent by Admin
+ getAgentOneAdmin : async(req, res) => {
+    let id = req.params.id
+    let agent = await Agent.findById(id).select("-password")
+    if(!agent) return res.status(404).send({success:false, message:'No Agent found.'})
+    res.send(agent)
+},
 
  //signup User/customer
   userSignup : async (req, res) => {
@@ -183,7 +191,6 @@ const user = {
     const dob = req.body.dob;
     const address = req.body.address;
     const bvn = req.body.bvn;
-    const account = "";
     const agent = req.user._id;
     // const idCard = req.body.idCard;
     const passport = arr[0].secure_url;
@@ -199,7 +206,6 @@ const user = {
         dob,
         bvn,
         agent,
-        account,
         address,
         // idCard,
         passport
@@ -209,7 +215,7 @@ const user = {
      const salt = await bcrypt.genSalt(10);
      user.password =  await bcrypt.hash(user.password, salt);
 
-     await user.save()
+    await user.save()
 
     //define serialNumber model variables
     let serialNumber = await SerialNumber.find().sort().select("number -_id")
@@ -228,23 +234,33 @@ const user = {
      
     //Define account model variables
     const number = nuban.nuban;
-    const name = user._id
+    const name = `${user.lastname} ${user.firstname} ${user.middlename} `
+    const balance = 0;
+    const userId = user._id;
+
+    const newAccount = [
+        {
+            number,
+            name,
+            balance,
+            user:userId
+        }
+    ]
  
      //init Account model
      const accounts = new Account ({
-         number,
-         name
+       accounts: newAccount
      })
  
      //save account to database
     await accounts.save()
 
+
     //set sccount to acount number
-    user.account = nuban.nuban
+    user.account = accounts._id
 
     //save user
     await user.save()
-
 
     res.send({success:true, message:"Successfully registered", account:number})
 
@@ -252,15 +268,42 @@ const user = {
 
  //get all users
  getUsers : async(req,res) => {
-    let user = await User.find().select("-password").populate("agent", "firstname middlename lastname");
+    let user = await User.find().populate("agent", "firstname middlename lastname").populate("account", "-_id -__v ").select("-password");
     if(!user[0]) return res.status(404).send({success:false, message:'No users yet.'})
     res.send(user)
  },
   //Get one User profile
   getUserOne : async(req, res) => {
-    let user = await User.findById(req.user._id).select("-password").populate("agent", "firstname middlename lastname");
+    let user = await User.findById(req.user._id).select("-password").populate("agent", "firstname middlename lastname").populate("account", "-_id -__v ").select("-password");
     if(!user) return res.status(404).send({success:false, message:'No user found.'})
     res.send(user)
+},
+ //Get users attached to an agent
+ getUserOneAgent : async(req, res) => {
+    let id = req.params.id
+    let user = await User.find({'agent' : id}).select("-password").populate("agent", "firstname middlename lastname");
+    if(!user[0]) return res.status(404).send({success:false, message:'No user found.'})
+    res.send(user)
+},
+
+ //Update a customers account to Approved
+ updateApprove : async(req, res) => {
+    let id = req.params.id
+    let user = await User.findById(id)
+    if(!user) return res.status(404).send({success:false, message:'No user found.'})
+    user.status = "Approved"
+    await user.save()
+    res.send({success:true, message:"Approved Successfully"})
+},
+
+//Update a customers account to Declined
+updateDecline : async(req, res) => {
+    let id = req.params.id
+    let user = await User.findById(id)
+    if(!user) return res.status(404).send({success:false, message:'No user found.'})
+    user.status = "Declined"
+    await user.save()
+    res.send({success:true, message:"Declined Successfully"})
 },
 }
 

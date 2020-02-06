@@ -3,7 +3,7 @@ const {Account, SerialNumber} = require ("../models/Account")
 const account ={
     //Get all acoounts
     getAccounts : async (req, res) => {
-        const account = await Account.find().select("name number -_id").populate("name", "firstname middlename lastname");
+        const account = await Account.find()
         if(!account[0])  return res.status(404).send({success:false, message:"Account not found"})
         res.send(account)
     },
@@ -11,9 +11,9 @@ const account ={
     //Get one Account
     getOneAccount : async (req, res) => {
         let number = req.params.number
-        const account = await Account.findOne({number}).select("name number -_id").populate("name", "firstname middlename lastname");
+        const account = await Account.findOne({"accounts.number":number}).select("-accounts.balance -_id -__v -accounts._id -accounts.user");
         if(!account) return res.status(404).send({success:false, message:"Account not found"})
-        res.send(account)
+        res.send(account.accounts)
     },
 
     //Post serial number
