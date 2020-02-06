@@ -21,6 +21,10 @@ router.route('/:number')
 //Create new Account
 router.post('/banks/:bankCode/:serialNumber', account.createAccount)
 
+//get all accounts associated with an agent
+router.get("/agent/me", [auth.auth, auth.authorize], account.GetAccountAgent)
+
+
 
 
 

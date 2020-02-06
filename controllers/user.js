@@ -245,7 +245,8 @@ const user = {
             number,
             name,
             balance,
-            user:userId
+            user:userId,
+            agent
         }
     ]
  
@@ -270,7 +271,7 @@ const user = {
 
  //get all users
  getUsers : async(req,res) => {
-    let user = await User.find().populate("agent", "firstname middlename lastname").populate("account", "-_id -__v ").select("-password");
+    let user = await User.find().populate("agent", "firstname lastname middlename").populate("account", "-_id -__v ").select("-password");
     if(!user[0]) return res.status(404).send({success:false, message:'No users yet.'})
     res.send(user)
  },

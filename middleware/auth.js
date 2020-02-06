@@ -26,7 +26,7 @@ const auth = {
 
     //custom middleware to check if user is an agent
     authorize : (req, res, next)  => {
-        if (!req.user.role == "Agent") return res.status(403).send('Acces Denied..only Agents')
+        if (req.user.role !== "Agent") return res.status(403).send('Acces Denied..only Agents')
         next()
     }
 }

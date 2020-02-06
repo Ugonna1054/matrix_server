@@ -83,12 +83,20 @@ const account ={
             checkDigit = checkDigit == 10 ? 0 : checkDigit;
           
             return checkDigit;
-          };
-          
-    
+          };        
+    },
 
-            
-    }
+    //Get all accounts tied to an agent
+    GetAccountAgent : async (req, res) => {
+        const id = req.user._id
+        const account = await Account.find({"accounts.agent":id})
+        let number = 0
+        account.forEach(item => {
+            let account = item.accounts.filter(o => o.agent == id)
+            number+=account.length
+        })
+        res.send({number})
+    }    
 }
 
 module.exports = account

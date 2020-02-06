@@ -20,6 +20,10 @@ const account = new mongoose.Schema({
     user : {
         type:ObjectId,
         required:true
+    },
+    agent : {
+        type:ObjectId,
+        required:true
     }
 },
 {
