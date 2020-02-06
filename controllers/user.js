@@ -191,6 +191,7 @@ const user = {
     const dob = req.body.dob;
     const address = req.body.address;
     const bvn = req.body.bvn;
+    const gender = req.body.gender;
     const agent = req.user._id;
     // const idCard = req.body.idCard;
     const passport = arr[0].secure_url;
@@ -205,6 +206,7 @@ const user = {
         phone,
         dob,
         bvn,
+        gender,
         agent,
         address,
         // idCard,
