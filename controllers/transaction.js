@@ -1,5 +1,6 @@
 const {Account} = require("../models/Account");
 const {Transaction} = require("../models/Transaction");
+const {User} = require("../models/user")
 
 
 const transaction = {
@@ -25,9 +26,13 @@ const transaction = {
         //check if account is existent
         let account_ = await Account.findOne({"accounts.number":account})
         if(!account_) return res.status(404).send({success:false, message:"Account not found"})
-
-        // return res.send(account_)
-         //init variables
+        
+        //check if user is approved by admin
+        let user_ = await User.findOne({_id:account_.accounts[0].user})
+        if(!user_) return res.status(404).send("User not found")
+        if(user_.status!="Approved") return res.status(403).send({success:false, message:"Account is yet to be approved. Contact Admin"})
+       
+        //init variables
         const amount = req.body.amount;
         const type = req.params.type;
         const user = account_.accounts[0].user

@@ -281,6 +281,7 @@ const user = {
     if(!user) return res.status(404).send({success:false, message:'No user found.'})
     res.send(user)
 },
+
  //Get users attached to an agent
  getUserOneAgent : async(req, res) => {
     let id = req.params.id
