@@ -6,7 +6,7 @@ const {User} = require("../models/user")
 const transaction = {
     //Get all Transactions
     getTransactions : async (req, res) => {
-        const transaction = await Transaction.find()
+        const transaction = await Transaction.find().populate("agent", "firstname middlename lastname").populate("user", "firstname middlename lastname")
         if(!transaction[0])  return res.send({success:true, message:"No Transaction yet"})
         res.send(transaction)
     },
