@@ -1,5 +1,6 @@
 const cloudinary = require ('cloudinary').v2;
-const fs = require('fs')
+const fs = require('fs');
+
 
  // Cloudinary configuration
     cloudinary.config({

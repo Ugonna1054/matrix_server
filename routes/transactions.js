@@ -13,6 +13,9 @@ router.get("/me", auth.auth, transaction.getTransactionOne)
 //post transaction by agent
 router.post("/:type", [auth.auth, auth.authorize], transaction.postTransaction)
 
+//update all transactions
+//router.put("/", transaction.updateTransactions)
+
 
 
 module.exports = router; 

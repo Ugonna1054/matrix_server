@@ -12,6 +12,7 @@ const user = {
     //check for validation errors
     const { error } = validateAgent(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
+
     //check for already registered user 
     let user = await Agent.findOne({ email: req.body.email });
     if (user) return res.status(400).send({success:false, message:'Agent already registered.'});
@@ -32,7 +33,7 @@ const user = {
     })
 
     //throw eror if not valid
-    if(validImage[0]) return res.status(400).send({success:false, message:'Invalid file format. Only jpegs or pngs'})
+    if(validImage[0]) return res.status(400).send({success:false, message:'Invalid file format. Only jpegs, pngs or pdfs'})
 
     //check size of the image
     values.forEach((item) => {
@@ -60,7 +61,8 @@ const user = {
 
     //throw err if any
     if(errors[0]) {
-        if(errors[0].error.errno =="ENOTFOUND" || errors[0].error.code =="ENOTFOUND" ) return res.status(400).send({success:false, message:"Check your internet connection"})
+        if(errors[0].error.errno =="ENOTFOUND" || errors[0].error.code =="ENOTFOUND" ) return res.status(400).send({success:false, message:"Check your internet connection"});
+        res.status(500).send(errors)
     }
 
     // define req.body variables
@@ -72,6 +74,9 @@ const user = {
     const phone = req.body.phone;
     const dob = req.body.dob;
     const address = req.body.address;
+    const wallet = {
+        balance:0
+    }
     const idCard = arr[0].secure_url;
     const passport = arr[1].secure_url
 
@@ -86,6 +91,7 @@ const user = {
             phone,
             dob,
             address,
+            wallet,
             idCard,
             passport
         })
@@ -128,6 +134,7 @@ const user = {
     //check for validation errors
     const { error } = validateUser(req.body); 
     if (error) return res.status(400).send(error.details[0].message);
+
     //check for already registered user 
     let user = await User.findOne({ email: req.body.email });
     if (user) return res.status(400).send({success:false, message:'User already registered.'});
@@ -149,7 +156,7 @@ const user = {
      })
  
      //throw eror if not valid
-     if(validImage[0]) return res.status(400).send({success:false, message:'Invalid file format. Only jpegs or pngs'})
+     if(validImage[0]) return res.status(400).send({success:false, message:'Invalid file format. Only jpegs, pngs or pdfs'})
  
      //check size of the image
      values.forEach((item) => {
@@ -178,6 +185,7 @@ const user = {
      //throw err if any
      if(errors[0]) {
          if(errors[0].error.errno =="ENOTFOUND" || errors[0].error.code =="ENOTFOUND" ) return res.status(400).send({success:false, message:"Check your internet connection"})
+         res.status(500).send(errors)
      }
 
      

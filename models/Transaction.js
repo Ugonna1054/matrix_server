@@ -4,6 +4,11 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 //init transaction schema
 const transactionSchema = new mongoose.Schema({
+    status:{
+        type:String,
+        required:true,
+        default:"Pending"
+    },
     amount:{
         type:Number,
         required:true
