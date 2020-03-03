@@ -13,6 +13,12 @@ router.get("/me", auth.auth, transaction.getTransactionOne)
 //post transaction by agent
 router.post("/:type", [auth.auth, auth.authorize], transaction.postTransaction)
 
+//update transaction status by admin to Approved
+router.put('/update/approve/:id', [auth.auth,admin],  transaction.updateApprove)
+
+//Update transaction status by admin to Declined
+router.put('/update/decline/:id', [auth.auth,admin],  transaction.updateDecline)
+
 //update all transactions
 //router.put("/", transaction.updateTransactions)
 

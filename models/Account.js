@@ -33,6 +33,9 @@ const account = new mongoose.Schema({
 //define schema 
 const accountSchema = new mongoose.Schema({
    accounts : [account]
+},
+{
+    timestamps: true
 })
 
 //define Model

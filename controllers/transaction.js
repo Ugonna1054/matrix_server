@@ -1,7 +1,7 @@
 const {Account} = require("../models/Account");
 const {Transaction} = require("../models/Transaction");
-const {User} = require("../models/user");
-const {Agent} = require("../models/user")
+const {User, Agent} = require("../models/user");
+// const {} = require("../models/user")
 
 
 const transaction = {
@@ -57,6 +57,7 @@ const transaction = {
             }})
             //update Agent wallet
             agent.wallet["balance"] = newBalance;
+            agent.wallet["totalDeposit"] = agent.wallet["totalDeposit"] +  amount;
             await agent.save()
         }
 
@@ -107,18 +108,10 @@ const transaction = {
                     {$set:{
                         "accounts.$.balance": newBalance_,       
                 }})
-                
-                //update Agent wallet
-                // await Agent.findByIdAndUpdate(agent,
-                //     {$set:{
-                //         "wallet.balance": newBalance,
-                        
-                // }});
             }
 
         }
         
- 
         //init Transaction 
         const transaction = new Transaction ({
             amount,
@@ -133,21 +126,66 @@ const transaction = {
         res.send({success:true, message:"Transaction Successful"})
     },
 
-    //update all transactions
-    updateTransactions : async (req, res) => {
-        let transaction =await Transaction.updateMany(
-                    {},
-                    { 
-                        "$set": {
-                            "status": "Pending",
-                        }
-                    },
-                    function(err,doc) {
-                
-                    }
-                );
-       res.send(transaction)
+    //Update a transaction status to Approved
+    updateApprove : async(req, res) => {
+        let id = req.params.id;
+        let agentId = req.body.agentId
+
+        //check if transaction exists
+        let transaction = await Transaction.findById(id)
+        if(!transaction) return res.status(404).send({success:false, message:'Transaction Not found.'})
+        
+        //check if transaction has been approved already
+        if (transaction.status == "Approved" || transaction.status == "Declined") return res.status(400).send({success:false, message: "Transaction has already been approved/declined"})
+        
+        //confirm withdrawal by agent and update agent account
+         let agent = await Agent.findById(agentId);
+         if(!agent) return res.status(400).send({success:false, message:"Agent not found"})
+         let newBalance = agent.wallet["balance"] - transaction.amount
+
+        //Approve Transaction
+        transaction.status = "Approved"
+        await transaction.save();
+
+        //update Agent wallet
+         await Agent.findByIdAndUpdate(agent,
+             {$set:{
+                "wallet.balance": newBalance,     
+         }});
+        res.send({success:true, message:"Approved Successfully"})
     },
+
+    //Update a transaction status to Declined
+    updateDecline : async(req, res) => {
+        let id = req.params.id
+
+        //check if transaction exists
+        let transaction = await Transaction.findById(id)
+        if(!transaction) return res.status(404).send({success:false, message:'Transaction Not found.'})
+        
+        //check if transaction has been approved or declined already
+        if (transaction.status == "Approved" || transaction.status == "Declined") return res.status(400).send({success:false, message: "Transaction has already been approved/declined"})
+        transaction.status = "Declined"
+        
+        await transaction.save()
+        res.send({success:true, message:"Declined Successfully"})
+    },
+
+    //update all transactions
+    // updateTransactions : async (req, res) => {
+    //     let transaction =await Transaction.updateMany(
+    //                 {},
+    //                 { 
+    //                     "$set": {
+    //                         "status": "Pending",
+    //                     }
+    //                 },
+    //                 function(err,doc) {
+    //             
+    //                 }
+    //             );
+    //    res.send(transaction)
+    // },
 }
 
 module.exports = transaction
